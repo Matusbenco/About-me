@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Matúš Benčo | Senior Sales & E-commerce Manager</title>
+    <meta name="description" content="Senior Sales & E-commerce Manager so zameraním na inovácie, B2B stratégie a AI automatizáciu.">
+    <meta property="og:title" content="Matúš Benčo - Profesionálne Portfólio">
+    <meta property="og:description" content="Senior Sales & E-commerce Manager. B2B Stratégie, AI inovácie a vedenie tímov.">
+    <meta property="og:image" content="mb.png">
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0f172a;       /* Tmavé pozadie */
+            --bg-card: #1e293b;       /* Karty */
+            --bg-card-hover: #263345; 
+            --text-main: #f1f5f9;     /* Biela/Svetlá */
+            --text-muted: #94a3b8;    /* Sivá */
+            --accent: #6366f1;        /* Indigo - Akcent */
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --border: #334155;        
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        strong { color: white; font-weight: 700; }
+
+        .container { max-width: 1100px; margin: 0 auto; position: relative; }
+
+        /* --- LANGUAGE SWITCHER --- */
+        .lang-switch {
+            position: absolute;
+            top: 10px;        
+            right: 0;         
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+            padding: 5px;
+        }
+
+        .lang-flag {
+            width: 34px;      
+            height: 24px;     
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            border: 2px solid transparent;
+        }
+
+        .lang-flag:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        .lang-flag.active {
+            opacity: 1;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding-top: 60px; 
+            position: relative;
+        }
+
+        .profile-header { display: flex; align-items: center; gap: 1.5rem; }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            flex-shrink: 0;
+        }
+        
+        .avatar {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .avatar-wrapper:hover .avatar {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--accent);
+        }
+
+        .title h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.2rem;
+            letter-spacing: -1px;
+        }
+        .title h1 span { color: var(--accent); }
+        
+        /* Nový štýl pre podnadpis */
+        .title h2 {
+            font-size: 1.25rem;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            border: none;
+            padding: 0;
+        }
+        
+        .title p { color: var(--text-muted); font-size: 1rem; max-width: 500px; }
+
+        .contact-info {
+            display: flex; flex-direction: column; align-items: flex-end;
+            gap: 0.6rem; font-size: 0.95rem; color: var(--text-muted);
+        }
+        .contact-item { display: flex; align-items: center; gap: 0.6rem; }
+        .contact-item:hover { color: var(--accent); transform: translateX(-3px); }
+        .contact-item i { font-size: 1.1rem; color: var(--accent); }
+
+        /* Tlačidlo PDF */
+        .btn-print {
+            margin-top: 1rem;
+            background: linear-gradient(135deg, var(--accent), #4f46e5);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-family: inherit;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            transition: 0.3s;
+        }
+        .btn-print:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5); }
+
+        /* --- GRID --- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 2.5rem;
+        }
+
+        /* --- KARTY --- */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.4);
+        }
+        
+        .card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, var(--accent-glow), transparent 50%);
+            opacity: 0; transition: 0.5s; pointer-events: none;
+        }
+        .card:hover::after { opacity: 0.15; }
+
+        h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.8rem;
+            color: var(--text-main);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        /* --- SIDEBAR --- */
+        .bio-text { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem; text-align: justify; }
+        
+        /* Tooltip pre Vibe Coding */
+        .tooltip {
+            border-bottom: 1px dashed var(--accent);
+            cursor: help;
+            position: relative;
+            color: white;
+        }
+        .tooltip:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%; left: 50%; transform: translateX(-50%);
+            background: var(--accent); color: white;
+            padding: 0.5rem 1rem; border-radius: 6px;
+            font-size: 0.8rem; white-space: pre-wrap; width: 200px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            margin-bottom: 10px; z-index: 10;
+        }
+
+        /* Projekty */
+        .project-item {
+            display: flex; gap: 1rem;
+            margin-bottom: 1rem; padding: 0.8rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px; border: 1px solid transparent;
+            transition: 0.3s;
+        }
+        .project-item:hover { background: var(--bg-card-hover); border-color: var(--border); }
+        
+        .project-icon {
+            width: 40px; height: 40px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; flex-shrink: 0;
+        }
+        
+        .project-info { flex: 1; }
+        .project-title { font-weight: 700; color: var(--text-main); font-size: 0.95rem; display: flex; justify-content: space-between; }
+        .project-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem; line-height: 1.4; }
+
+        /* Skilly */
+        .skill-category { margin-bottom: 1.5rem; }
+        .skill-title {
+            font-size: 0.75rem; text-transform: uppercase;
+            color: var(--accent); font-weight: 800;
+            letter-spacing: 1px; margin-bottom: 0.8rem;
+        }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .tag {
+            background: rgba(255,255,255,0.05);
+            padding: 0.3rem 0.7rem; border-radius: 6px;
+            font-size: 0.8rem; color: #cbd5e1;
+            border: 1px solid transparent; cursor: default; transition: 0.3s;
+        }
+        .tag:hover {
+            border-color: var(--accent); color: white;
+            background: rgba(99, 102, 241, 0.15);
+        }
+
+        /* --- EXPERIENCE --- */
+        .section-title {
+            font-size: 2rem; margin-bottom: 2rem;
+            border-left: 5px solid var(--accent); padding-left: 1rem;
+            border-bottom: none;
+        }
+
+        .job-header {
+            display: flex; justify-content: space-between;
+            align-items: flex-start; margin-bottom: 0.8rem;
+        }
+        .job-role { font-size: 1.25rem; font-weight: 700; color: var(--text-main); }
+        .card:hover .job-role { color: var(--accent); transition: color 0.3s; }
+        
+        .job-company {
+            color: var(--accent); font-weight: 600; font-size: 1rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        
+        .job-date {
+            font-family: 'Courier New', monospace; font-size: 0.85rem; font-weight: 600;
+            background: rgba(255,255,255,0.08); padding: 0.3rem 0.6rem;
+            border-radius: 6px; color: #cbd5e1;
+        }
+        
+        .job-desc {
+            font-style: italic; color: #94a3b8; margin-bottom: 1.2rem;
+            padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .job-points li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.6rem;
+            color: #cbd5e1; font-size: 0.95rem;
+        }
+        .job-points li::before {
+            content: '•'; color: var(--accent);
+            position: absolute; left: 0; font-weight: bold; font-size: 1.2rem; top: -3px;
+        }
+
+        /* Testimonials */
+        .testimonial-quote {
+            font-style: italic;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+            margin-bottom: 1rem;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.9rem;
+        }
+        .author-name { font-weight: 700; color: white; }
+        .author-role { color: var(--text-muted); font-size: 0.8rem; }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            .main-grid { grid-template-columns: 1fr; }
+            header { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding-top: 3rem; }
+            .contact-info { align-items: flex-start; margin-top: 0; }
+            .job-header { flex-direction: column; gap: 0.5rem; }
+            .title h1 { font-size: 2rem; }
+            .title h2 { font-size: 1.1rem; }
+            .lang-switch { top: 1rem; right: 0; }
+        }
+
+        /* --- PRINT STYLES (TLAČ) --- */
+        @media print {
+            body {
+                background-color: white; color: black; padding: 0;
+            }
+            .container { max-width: 100%; width: 100%; margin: 0; }
+            
+            /* Skryť netlačiace prvky */
+            .btn-print, .no-print, .lang-switch, .tooltip::after { display: none !important; }
+            
+            header { margin-bottom: 1.5rem; border-bottom: 2px solid black; padding-bottom: 1rem; padding-top: 0; }
+            .title h1 { color: black; font-size: 22pt; margin: 0; }
+            .title h2 { color: black; font-size: 14pt; margin: 0.2rem 0; }
+            .title p { color: #333; margin: 0; }
+            .title h1 span { color: black; }
+            .contact-info { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; }
+            .contact-item { color: black; font-size: 9pt; }
+            .contact-item i { color: black; }
+
+            /* Grid na tlač */
+            .main-grid { display: block; }
+            aside { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; border-bottom: 1px solid #ccc; padding-bottom: 1rem; }
+            aside .card { width: 48%; margin: 0; padding: 0; border: none; }
+            
+            .card {
+                background: none; border: none; border-radius: 0;
+                padding: 0; margin-bottom: 1.5rem; box-shadow: none;
+                color: black; break-inside: avoid;
+            }
+            .card:hover { transform: none; box-shadow: none; }
+            .card::after { display: none; }
+            
+            h2, .section-title {
+                color: black; border-color: black; font-size: 14pt; margin-bottom: 0.5rem; border-left: none; padding-left: 0;
+            }
+            
+            /* Úprava textov */
+            .bio-text, .job-desc, .job-points li, .project-desc, .testimonial-quote { color: #222; }
+            .job-role { color: black; font-size: 12pt; }
+            .job-company { color: #333; font-size: 11pt; }
+            .job-date { background: none; border: 1px solid #ccc; color: black; padding: 0.1rem 0.4rem; }
+            strong { color: black; }
+            
+            /* Skilly na tlač */
+            .tag { border: 1px solid #999; color: black; background: transparent; padding: 0.1rem 0.4rem; }
+            .project-item { background: none; border: none; padding: 0; margin-bottom: 0.5rem; }
+            .project-icon { display: none; } 
+            
+            a { text-decoration: none; color: black; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="lang-switch no-print">
+            <img src="sk.png" alt="Slovak" class="lang-flag active">
+            <a href="cv_en.html"><img src="en.png" alt="English" class="lang-flag"></a>
+        </div>
+
+        <header>
+            <div class="profile-header">
+                <div class="avatar-wrapper">
+                    <img src="mb.png" alt="Matúš Benčo" class="avatar">
+                </div>
+                <div class="title">
+                    <h1>Matúš <span>Benčo</span></h1>
+                    <h2>Senior Sales & E-commerce Manager</h2>
+                    <p>B2B Stratégie • Inovácie • AI Automatizácia</p>
+                </div>
+            </div>
+
+            <div class="contact-info">
+                <a href="mailto:mtsbenco@gmail.com" class="contact-item"><i class='bx bx-envelope'></i> mtsbenco@gmail.com</a>
+                <a href="tel:+421905351100" class="contact-item"><i class='bx bx-phone'></i> +421 905 351 100</a>
+                <a href="https://linkedin.com/in/matusbenco" target="_blank" class="contact-item"><i class='bx bxl-linkedin-square'></i> LinkedIn Profil</a>
+                <span class="contact-item"><i class='bx bx-map'></i> Košice, Bidovce</span>
+                
+                <button onclick="window.print()" class="btn-print">
+                    <i class='bx bx-printer'></i> Uložiť ako PDF
+                </button>
+            </div>
+        </header>
+
+        <div class="main-grid">
+            
+            <aside>
+                <div class="card">
+                    <h2><i class='bx bx-user'></i> O Mne</h2>
+                    <p class="bio-text">
+                        Viac ako <strong>10 rokov v obchode</strong> mi potvrdilo, že kľúčom je ochota neustále rásť. 
+                        Spájam budovanie vzťahov s efektívnym využívaním technológií.
+                    </p>
+                    <p class="bio-text">
+                        Aktívne sa venujem rozvoju v marketingu a programovaní, vrátane 
+                        <span class="tooltip" data-tip="Rýchly vývoj aplikácií pomocou AI (ChatGPT, Claude) bez hlbokej znalosti syntaxe.">"vibe coding"</span>, 
+                        čím zvyšujem hodnotu pre firmu.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h2><i class='bx bx-code-alt'></i> Projekty</h2>
+                    
+                    <a href="https://www.ombradoro.sk/" target="_blank">
+                        <div class="project-item">
+                            <div class="project-icon"><i class='bx bx-cart'></i></div>
+                            <div class="project-info">
+                                <div class="project-title">Ombradoro.sk <i class='bx bx-link-external no-print'></i></div>
+                                <div class="project-desc">Kompletný e-shop: grafika, custom kód a automatizácie.</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://unoneto.eu/" target="_blank">
+                        <div class="project-item">
+                            <div class="project-icon"><i class='bx bx-joystick'></i></div>
+                            <div class="project-info">
+                                <div class="project-title">Unoneto.eu <i class='bx bx-link-external no-print'></i></div>
+                                <div class="project-desc">Vlastný voľnočasový projekt.</div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="https://carbox.top/" target="_blank">
+                        <div class="project-item">
+                            <div class="project-icon"><i class='bx bx-calendar'></i></div>
+                            <div class="project-info">
+                                <div class="project-title">Carbox.top <i class='bx bx-link-external no-print'></i></div>
+                                <div class="project-desc">Rezervačný systém a Google integrácie.</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="card">
+                    <h2><i class='bx bx-trending-up'></i> Kompetencie</h2>
+                    
+                    <div class="skill-category">
+                        <div class="skill-title">Management & Stratégia</div>
+                        <div class="tags">
+                            <span class="tag">Tímový manažment</span>
+                            <span class="tag">B2B & B2C Stratégie</span>
+                            <span class="tag">Category Management</span>
+                            <span class="tag">Vyjednávanie</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-title">E-commerce & Platformy</div>
+                        <div class="tags">
+                            <span class="tag">WooCommerce</span>
+                            <span class="tag">Shoptet</span>
+                            <span class="tag">Pricing stratégie</span>
+                            <span class="tag">ROAS & PNO analýza</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-title">Marketing Tools</div>
+                        <div class="tags">
+                            <span class="tag">Google Ads / Meta</span>
+                            <span class="tag">Tanganica</span>
+                            <span class="tag">Metricool</span>
+                            <span class="tag">Canva</span>
+                            <span class="tag">SEO & PPC</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-title">Tech & CRM</div>
+                        <div class="tags">
+                            <span class="tag">Raynet / Odoo</span>
+                            <span class="tag">Jira / Asana</span>
+                            <span class="tag">Power BI</span>
+                            <span class="tag">MS Office 365</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <div class="skill-title">AI & Automatizácia</div>
+                        <div class="tags">
+                            <span class="tag">Make / n8n</span>
+                            <span class="tag">ChatGPT / Claude</span>
+                            <span class="tag">Vibe Coding</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <div class="skill-title">Jazyky</div>
+                        <div class="tags">
+                            <span class="tag">Slovenský (Native)</span>
+                            <span class="tag">Anglický (B1)</span>
+                        </div>
+                    </div>
+
+                </div>
+            </aside>
+
+            <main>
+                <h2 class="section-title">Pracovné Skúsenosti</h2>
+
+                <div class="card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-role">B2B Manažér</div>
+                            <div class="job-company"><i class='bx bxs-buildings'></i> PUELLAvone s.r.o.</div>
+                        </div>
+                        <div class="job-date">Aug 2025 - Dec 2025</div>
+                    </div>
+                    <p class="job-desc">Zodpovednosť za predajné výsledky, tržby a napĺňanie obchodných KPIs v B2B oblasti.</p>
+                    <ul class="job-points">
+                        <li>Tvorba a optimalizácia <strong>predajnej stratégie</strong> pre B2B klientelu.</li>
+                        <li>Kompletný manažment cyklu od identifikácie po <strong>podpis zmlúv a onboarding</strong>.</li>
+                        <li>Zavádzanie <strong>CRM nástrojov</strong> a automatizácie pre zvýšenie efektivity.</li>
+                        <li>Reporting vedeniu o výsledkoch a predikciách.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-role">Obchodný & Projektový Manažér</div>
+                            <div class="job-company"><i class='bx bxs-buildings'></i> HUGOTECH s.r.o.</div>
+                        </div>
+                        <div class="job-date">Nov 2024 - Júl 2025</div>
+                    </div>
+                    <p class="job-desc">Návrh a implementácia stratégie, spustenie e-shopu a akvizícia v segmente samospráv.</p>
+                    <ul class="job-points">
+                        <li>Spustenie <strong>nového e-shopu</strong> a implementácia B2B/B2C stratégie.</li>
+                        <li>Riadenie online kampaní (Google Ads, FB) a aktívny predaj.</li>
+                        <li>Vedenie business analýzy pre modernizáciu informačných systémov.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-role">Senior Category Manager</div>
+                            <div class="job-company"><i class='bx bxs-buildings'></i> ABC-ZOO</div>
+                        </div>
+                        <div class="job-date">Mar 2024 - Feb 2025</div>
+                    </div>
+                    <p class="job-desc">Strategický rozvoj zverených kategórií.</p>
+                    <ul class="job-points">
+                        <li>Tvorba dlhodobých stratégií vedúcich k medziročnému rastu kategórií o <strong>20 %</strong>.</li>
+                        <li>Vyjednávanie s kľúčovými dodávateľmi a <strong>zlepšenie priemernej marže</strong>.</li>
+                        <li>Riadenie metrík (ROAS, PNO) a prekonávanie KPI marketingovými kampaňami.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-role">Obchodný zástupca (B2B)</div>
+                            <div class="job-company"><i class='bx bxs-buildings'></i> EasyCo s.r.o. (Praha)</div>
+                        </div>
+                        <div class="job-date">Sep 2022 - Dec 2023</div>
+                    </div>
+                    <p class="job-desc">Aktívna akvizícia a starostlivosť o veľkoobchodných partnerov.</p>
+                    <ul class="job-points">
+                        <li>Proaktívna <strong>akvizícia nových B2B zákazníkov</strong> a zodpovednosť za rast.</li>
+                        <li>Manažment portfólia kľúčových partnerov a budovanie dlhodobých vzťahov.</li>
+                        <li>Tvorba ponúk a produktové školenia pre maximalizáciu predajného potenciálu.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-role">Manažér B2B & Regionálny Manažér</div>
+                            <div class="job-company"><i class='bx bxs-buildings'></i> Muziker a.s.</div>
+                        </div>
+                        <div class="job-date">2016 - 2022</div>
+                    </div>
+                    <p class="job-desc">Kariérny rast od vedenia prevádzok po riadenie medzinárodnej expanzie.</p>
+                    <ul class="job-points">
+                        <li>Expanzia na nové trhy <strong>(HU, SI, IT, RO, AT)</strong> a vytvorenie B2B portálu.</li>
+                        <li>Vedenie tímu nákupcov a obchodníkov pre <strong>30 krajín EÚ</strong> (Teamleader).</li>
+                        <li>Komplexné riadenie 3 maloobchodných prevádzok (SK/CZ) a ich tímov.</li>
+                        <li>Implementácia dynamickej cenotvorby a optimalizácia dodávateľských podmienok.</li>
+                    </ul>
+                </div>
+                
+                <h2 class="section-title">Odporúčania</h2>
+                <div class="card">
+                    <div class="testimonial-quote">
+                        "Matus was a great boss but firstly a beautiful person. I had a pleasure to work with him for many years and he helped me grow extensionally. He's a great motivator, thirsty for innovation, constantly looking for things and processes that would make work more efficient and company progress."
+                    </div>
+                    <div class="testimonial-author">
+                        <div style="width: 40px; height: 40px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">MG</div>
+                        <div>
+                            <div class="author-name">Matej Gajdošík</div>
+                            <div class="author-role">Specialist @ Kimbino (Reported to Matúš)</div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
