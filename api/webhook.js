@@ -4,21 +4,29 @@ export default function handler(request, response) {
   const mesiace = ['januara', 'februara', 'marca', 'aprila', 'maja', 'juna', 'jula', 'augusta', 'septembra', 'oktobra', 'novembra', 'decembra'];
   const cislovky = ['', 'prveho', 'druheho', 'tretieho', 'stvrteho', 'piateho', 'siesteho', 'siedmeho', 'osmeho', 'deviateho', 'desiateho', 'jedenásteho', 'dvanásteho', 'trinásteho', 'štrnásteho', 'pätnásteho', 'šestnásteho', 'sedemnásteho', 'osemnásteho', 'devätnásteho', 'dvadsiateho', 'dvadsiateho prveho', 'dvadsiateho druheho', 'dvadsiateho tretieho', 'dvadsiateho stvrteho', 'dvadsiateho piateho', 'dvadsiateho siesteho', 'dvadsiateho siedmeho', 'dvadsiateho osmeho', 'dvadsiateho deviateho', 'tridsiateho', 'tridsiateho prveho'];
 
-  const hodinaCislo = d.getUTCHours() + 1;
+  // Bratislava = UTC + 1 (zimný čas) alebo UTC + 2 (letný čas)
+  // Január = zimný čas = UTC + 1
+  const utcHour = d.getUTCHours();
+  const hodinaCislo = utcHour + 1;
   const minuty = d.getUTCMinutes();
+  
   const den = dni[d.getUTCDay()];
   const datumSlovne = cislovky[d.getUTCDate()] + " " + mesiace[d.getUTCMonth()];
   
-  // Zajtra
   const zajtra = new Date(d);
   zajtra.setUTCDate(zajtra.getUTCDate() + 1);
   const zajtraDen = dni[zajtra.getUTCDay()];
   const zajtraDatum = cislovky[zajtra.getUTCDate()] + " " + mesiace[zajtra.getUTCMonth()];
 
-  // Dostupné hodiny dnes (len budúce)
-  const dostupneDnes = [];
-  for (let h = hodinaCislo + 1; h <= 17; h++) {
-    dostupneDnes.push(h + ":00");
+  // Dostupné hodiny dnes (len budúce, od 8 do 17)
+  const presliCasy = [];
+  const dostupneCasy = [];
+  for (let h = 8; h <= 17; h++) {
+    if (h <= hodinaCislo) {
+      presliCasy.push(h + ":00");
+    } else {
+      dostupneCasy.push(h + ":00");
+    }
   }
 
   return response.status(200).json({
@@ -43,11 +51,11 @@ export default function handler(request, response) {
         model: "gpt-4o",
         messages: [{ 
           role: "system", 
-          content: "Si Klara, asistentka zubnej kliniky Usmev. Hovoris IBA po slovensky.\n\nDNESNY DATUM: " + den + ", " + datumSlovne + "\nAKTUALNY CAS: " + hodinaCislo + ":" + String(minuty).padStart(2, '0') + "\nZAJTRA JE: " + zajtraDen + ", " + zajtraDatum + "\n\n=== PRAVIDLA PRE TERMINY - STRIKTNE DODRZUJ! ===\n\n1. MINULOST NEEXISTUJE:\n   - Aktualny cas je " + hodinaCislo + ":" + String(minuty).padStart(2, '0') + "\n   - NIKDY neponukaj terminy PRED aktualnym casom na dnes!\n   - Dnes mozes ponukat IBA: " + dostupneDnes.join(", ") + "\n   - Ak pacient chce skor, ponukni ZAJTRA\n\n2. KONTROLA KALENDARA - POVINNA!\n   - PRED KAZDYM ponuknutim terminu NAJPRV zavolaj skontrolovat_dostupnost!\n   - Ak je OBSADENE, ponukni INY cas\n   - NIKDY neponukaj obsadeny termin!\n   - Na jeden cas moze byt IBA JEDNA rezervacia!\n\n3. CASY HOVOR SLOVNE:\n   - 10:00 = o desiatej hodine\n   - 11:00 = o jedenastej hodine\n   - 14:00 = o strnastej hodine\n\nZAKAZANE:\n- Neponukaj casy ktore uz presli\n- Neponukaj obsadene terminy\n- Nepouzivaj anglicke slova\n\nPOSTUP:\n1. Zisti co pacient potrebuje\n2. ZAVOLAJ skontrolovat_dostupnost!\n3. Ponukni IBA VOLNE terminy v BUDUCNOSTI\n4. Spytaj sa meno, over ho\n5. Spytaj sa telefon, over ho\n6. Vytvor rezervaciu\n\nFORMAT KALENDARA: Zubna klinika Usmev - [zakrok] - [meno]\n\nORDINACNE HODINY: Po-St 8-17, St 8-19, Pi 8-15, So 9-12, Ne zatvorene\nCENNIK: Prehliadka 25 eur, Hygiena 55 eur\nADRESA: Dunajska 15, Bratislava"
+          content: "Si Klara, asistentka zubnej kliniky Usmev. Hovoris IBA po slovensky.\n\nDNESNY DATUM: " + den + ", " + datumSlovne + "\nAKTUALNY CAS: " + hodinaCislo + ":" + String(minuty).padStart(2, '0') + "\nZAJTRA: " + zajtraDen + ", " + zajtraDatum + "\n\n=== TERMINY ===\nDnes mozes ponukat IBA: " + dostupneCasy.join(", ") + "\n" + presliCasy.join(", ") + " uz PRESLI - NIKDY ich neponukaj!\n\n=== KONTROLA KALENDARA ===\nPRED ponuknutim terminu VZDY zavolaj skontrolovat_dostupnost!\nAk je termin OBSADENY - ponukni iny cas!\nNa jeden cas moze byt len JEDNA rezervacia!\n\n=== AK NEROZUMIES ===\nAk niecomu nerozumies, NEOPAKUJ nezmysly!\nPovedz: \"Prepacte, nerozumela som. Mozete to prosim zopakovat?\"\n\n=== CASY SLOVNE ===\n11:00 = o jedenastej\n12:00 = o dvanastej\n14:00 = o strnastej\n\nPOSTUP:\n1. Zisti co pacient potrebuje\n2. Zavolaj skontrolovat_dostupnost\n3. Ponukni VOLNY termin\n4. Over meno\n5. Over telefon\n6. Vytvor rezervaciu\n\nFORMAT: Zubna klinika Usmev - [zakrok] - [meno]\nADRESA: Dunajska 15, Bratislava"
         }],
         toolIds: ["86122294-c571-4bb3-b066-ba2d5e66add3", "f0fbe811-364d-4738-a79f-09b73055efe5"]
       },
-      endCallPhrases: ["dovidenia", "do videnia", "zbohom", "majte sa"]
+      endCallPhrases: ["dovidenia", "do videnia", "majte sa"]
     }
   });
 }
