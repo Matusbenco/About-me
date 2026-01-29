@@ -30,7 +30,7 @@ export default function handler(request, response) {
       firstMessage: "Dobrý deň, zubná klinika Úsmev, volá Klára. Ako vám môžem pomôcť?",
       voice: { 
         provider: "11labs", 
-        voiceId: "90ipbRoKi4CpHXvKVtl0",
+        voiceId: "h2sm0NbeIZXHBzJOMYcQ",
         stability: 0.4,
         similarityBoost: 0.8,
         style: 0.5
